@@ -1,0 +1,174 @@
+/* Card System */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1E40AF;
+  background: #EFF6FF;
+  border-bottom: 1px solid #DBEAFE;
+  border-left: 4px solid #2563EB;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Form Elements */
+.label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1F2937;
+  background: white;
+  transition: all 0.15s;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
+.input:read-only {
+  background: #F9FAFB;
+  color: #6B7280;
+}
+
+/* Table */
+.table-th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.table-td {
+  padding: 4px 6px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.table-td input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.15s;
+}
+
+.table-td input:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.12);
+}
+
+/* Totals */
+.total-box {
+  background: #F9FAFB;
+  border-radius: 8px;
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+}
+
+.total-box-highlight {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+}
+
+.total-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.total-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+/* Result states */
+.result-success .card-header {
+  background: #F0FDF4;
+  color: #15803D;
+  border-left-color: #22C55E;
+  border-bottom-color: #BBF7D0;
+}
+
+.result-error .card-header {
+  background: #FEF2F2;
+  color: #DC2626;
+  border-left-color: #EF4444;
+  border-bottom-color: #FECACA;
+}
+
+/* Toast */
+.toast-success { background: #15803D; color: white; }
+.toast-error { background: #DC2626; color: white; }
+.toast-info { background: #2563EB; color: white; }
+.toast-show {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Remove button */
+.btn-remove {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #9CA3AF;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-remove:hover {
+  background: #FEF2F2;
+  color: #DC2626;
+}

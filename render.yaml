@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: nfse-sistema
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MOCK_MODE
+        value: "false"
+      - key: AMBIENTE
+        value: "2"
+      - key: UF
+        value: RS
+      - key: CERT_PATH
+        value: ./certs/SAGA_41453040.pfx
+      - key: CERT_PASSWORD
+        value: "41453040"

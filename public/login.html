@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Sistema NFS-e</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #60A5FA 100%); }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+    <div class="flex flex-col items-center mb-8">
+      <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-4">
+        <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-800">Sistema NFS-e</h1>
+      <p class="text-sm text-gray-500 mt-1">Nota Fiscal de Servico Eletronica</p>
+    </div>
+
+    <div id="errorMsg" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm text-center"></div>
+
+    <form onsubmit="return doLogin(event)">
+      <div class="mb-4">
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">E-mail</label>
+        <input type="email" id="loginEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="seu@email.com">
+      </div>
+      <div class="mb-6">
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Senha</label>
+        <input type="password" id="loginPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="Sua senha">
+      </div>
+      <button type="submit" id="btnLogin" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition">
+        Entrar
+      </button>
+    </form>
+
+    <p class="text-center text-xs text-gray-400 mt-8">Desenvolvido por: <span class="font-semibold text-gray-500">JM Software</span></p>
+  </div>
+
+  <script>
+    // Se já tem token, vai direto pro sistema
+    if (localStorage.getItem('nfse_token')) {
+      window.location.href = '/';
+    }
+
+    async function doLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('btnLogin');
+      const err = document.getElementById('errorMsg');
+
+      btn.textContent = 'Entrando...';
+      btn.disabled = true;
+      err.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('nfse_token', data.token);
+          localStorage.setItem('nfse_user', JSON.stringify(data.user));
+          window.location.href = '/';
+        } else {
+          err.textContent = data.motivo || 'E-mail ou senha incorretos';
+          err.classList.remove('hidden');
+        }
+      } catch (error) {
+        err.textContent = 'Erro de conexao. Tente novamente.';
+        err.classList.remove('hidden');
+      }
+
+      btn.textContent = 'Entrar';
+      btn.disabled = false;
+    }
+  </script>
+</body>
+</html>

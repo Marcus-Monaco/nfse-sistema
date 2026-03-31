@@ -330,7 +330,9 @@ export async function emitirNFSeReal(
 
       // Salvar XML
       const chave = response.body.chaveAcesso || `local_${numDPS}`;
-      const xmlPath = path.resolve('xml-output', `${chave}.xml`);
+      const xmlDir = path.resolve('xml-output');
+      if (!fs.existsSync(xmlDir)) fs.mkdirSync(xmlDir, { recursive: true });
+      const xmlPath = path.join(xmlDir, `${chave}.xml`);
       fs.writeFileSync(xmlPath, nfseXml, 'utf-8');
 
       return {

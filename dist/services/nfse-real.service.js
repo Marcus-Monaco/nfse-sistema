@@ -275,7 +275,10 @@ async function emitirNFSeReal(data, pfxPath, passphrase, ambiente = 'homologacao
             }
             // Salvar XML
             const chave = response.body.chaveAcesso || `local_${numDPS}`;
-            const xmlPath = path_1.default.resolve('xml-output', `${chave}.xml`);
+            const xmlDir = path_1.default.resolve('xml-output');
+            if (!fs_1.default.existsSync(xmlDir))
+                fs_1.default.mkdirSync(xmlDir, { recursive: true });
+            const xmlPath = path_1.default.join(xmlDir, `${chave}.xml`);
             fs_1.default.writeFileSync(xmlPath, nfseXml, 'utf-8');
             return {
                 success: true,

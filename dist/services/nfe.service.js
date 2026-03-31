@@ -15,7 +15,10 @@ async function emitirNFSe(data) {
     if (sefaz_1.config.mockMode) {
         const result = (0, mock_service_1.emitirNFSeMock)(data);
         if (result.chaveAcesso) {
-            const xmlPath = path_1.default.resolve('xml-output', `${result.chaveAcesso}.xml`);
+            const xmlDir = path_1.default.resolve('xml-output');
+            if (!fs_1.default.existsSync(xmlDir))
+                fs_1.default.mkdirSync(xmlDir, { recursive: true });
+            const xmlPath = path_1.default.join(xmlDir, `${result.chaveAcesso}.xml`);
             fs_1.default.writeFileSync(xmlPath, result.xml, 'utf-8');
         }
         return result;

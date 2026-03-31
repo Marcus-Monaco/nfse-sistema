@@ -9,7 +9,9 @@ export async function emitirNFSe(data: IFormData): Promise<INFSeResult> {
   if (config.mockMode) {
     const result = emitirNFSeMock(data);
     if (result.chaveAcesso) {
-      const xmlPath = path.resolve('xml-output', `${result.chaveAcesso}.xml`);
+      const xmlDir = path.resolve('xml-output');
+      if (!fs.existsSync(xmlDir)) fs.mkdirSync(xmlDir, { recursive: true });
+      const xmlPath = path.join(xmlDir, `${result.chaveAcesso}.xml`);
       fs.writeFileSync(xmlPath, result.xml, 'utf-8');
     }
     return result;

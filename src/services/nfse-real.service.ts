@@ -123,7 +123,7 @@ function gerarDpsXml(data: IFormData, numDPS: string): string {
     </toma>
     <serv>
       <locPrest>
-        <cLocPrestacao>${iss.municipioIncidencia}</cLocPrestacao>
+        <cLocPrestacao>${iss.municipioIncidencia || prest.endereco.codigoMunicipio || '4314902'}</cLocPrestacao>
       </locPrest>
       <cServ>
         <cTribNac>${converterCodigoServico(serv.codigoServico)}</cTribNac>
@@ -157,10 +157,13 @@ function gerarDpsXml(data: IFormData, numDPS: string): string {
 function converterCodigoServico(codigo: string): string {
   // Mapeia LC 116 → cTribNac (6 dígitos)
   const mapa: Record<string, string> = {
+    // Medicina (04.01.xx)
+    '4.01': '040101', '4.02': '040102', '4.03': '040103',
+    // Informática (01.04.xx)
     '14.01': '010401', '14.02': '010402', '14.03': '010403',
     '14.04': '010404', '14.05': '010405', '14.06': '010406',
     '14.07': '010407', '14.09': '010409',
-    '4.01': '010401', '4.02': '010402', '4.03': '010403',
+    // Outros
     '7.02': '010702', '17.01': '011701', '17.02': '011702',
     '17.14': '011714', '25.01': '012501', '5.01': '010501',
     '5.02': '010502',

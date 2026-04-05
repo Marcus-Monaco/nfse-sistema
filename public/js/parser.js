@@ -285,7 +285,7 @@ async function emitirRapido() {
       },
     },
     servico: {
-      codigoServico: '14.01',
+      codigoServico: '4.01',
       descricao: dados.descricao,
       valorServico: dados.valor,
     },
@@ -294,7 +294,7 @@ async function emitirRapido() {
         baseCalculo: dados.valor,
         aliquota: 2.00,
         valor: parseFloat((dados.valor * 0.02).toFixed(2)),
-        municipioIncidencia: codMun,
+        municipioIncidencia: prest.codigo_municipio || '4314902',
       },
     },
   };
